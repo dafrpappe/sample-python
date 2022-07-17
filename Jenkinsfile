@@ -1,6 +1,10 @@
 pipeline {
-    agent any
+    agent any 
     stages {
+        stage('Initialize'){
+               def dockerHome = tool 'alpinePythonDocker'
+               env.PATH = "${dockerHome}/bin:${env.PATH}"
+           }           
         stage('Build') {
             agent {
                 docker {
