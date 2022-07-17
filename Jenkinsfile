@@ -1,9 +1,7 @@
 pipeline{
     agent {
         docker {
-            image 'python:alpine'
-            args '-u root'
-            label 'docker1'
+            docker { image 'node:3.10.0-alpine3.14' }
         }
     }
     stages{
