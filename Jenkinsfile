@@ -8,5 +8,10 @@ pipeline {
         sh 'node --version'
       }
     }
+    stage('run tests') {
+        steps {
+            sh 'python --version'
+        }
+    }
   }
 }
