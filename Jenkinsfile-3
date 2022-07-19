@@ -12,26 +12,13 @@ pipeline{
                 sh 'yum -y install python3 python3-pip zlib-devel gcc git'
             }
         }
-        stage('Copy artifacts'){
-            steps{
-                copyArtifacts(projectName: 'pipeline1', flatten: true)
-                sh 'ls *.jpg'
-            }
-        }
         stage('Fetch and run code'){
             steps{
                 sh 'git clone https://github.com/linuxacademy/content-pipelines-cje-labs.git'
                 sh 'pip3 install -r content-pipelines-cje-labs/lab3_lab4/image_watermarker/requirements.txt'
                 sh 'python3 content-pipelines-cje-labs/lab3_lab4/image_watermarker/watermark.py'
+                sh 'python --version'
             }
-        }
-    }
-    post{
-        success{
-            archiveArtifacts artifacts: '*watermarked.jpg'
-        }
-        cleanup{
-            sh 'rm -rf content-pipelines-cje-labs *.jpg'
         }
     }
 }
