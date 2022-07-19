@@ -3,7 +3,7 @@ pipeline{
         docker{
             image 'centos:7'
             args '-u root'
-            label 'docker2'
+            label 'docker'
         }
     }
     stages{
