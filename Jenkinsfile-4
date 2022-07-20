@@ -4,9 +4,8 @@ pipeline {
     stage('Test') {
       steps {
         sh '''
-          sudo apt-get install git
-          git --version
-          curl --version
+        echo "test"
+
         '''
       }
     }
