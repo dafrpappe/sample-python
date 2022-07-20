@@ -4,14 +4,15 @@ pipeline{
             image 'ubuntu:18.04'
             args '-u root'
             label 'docker'
+    }
+    stages {
+      stage('Test') {
+        steps {
+          sh '''
+          echo "test"
+  
+          '''
         }
-  stages {
-    stage('Test') {
-      steps {
-        sh '''
-        echo "test"
-
-        '''
       }
     }
   }
