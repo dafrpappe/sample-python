@@ -6,6 +6,6 @@ ENV LANG en_US.utf8
 
 
 CMD [“echo”,”Image created”]
-RUN apt install -y git
+
 
 
