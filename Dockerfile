@@ -1,3 +1,5 @@
-FROM node:16-alpine
+FROM python:3.7.0-ubuntu-18.04
 
-RUN apk add -U git curl
+RUN apt-get update
+RUN apt-get install -y git
+CMD [“echo”,”Image created”]
