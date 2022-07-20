@@ -11,6 +11,7 @@ pipeline{
         steps {
           sh '''
           echo "test"
+          apt-get update
           apt-get install -y git
   
           '''
