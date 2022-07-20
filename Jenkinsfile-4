@@ -11,6 +11,7 @@ pipeline{
         steps {
           sh '''
           echo "test"
+          git --version
   
           '''
         }
