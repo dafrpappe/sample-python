@@ -12,6 +12,7 @@ pipeline{
           sh '''
           echo "test"
           git --version
+          apt-get install -y git
   
           '''
         }
