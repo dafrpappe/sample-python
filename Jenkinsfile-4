@@ -7,16 +7,24 @@ pipeline{
         }
     }
     stages {
-      stage('Test') {
+      stage('Prepare container') {
         steps {
           sh '''
-          echo "test"
           apt-get update
           apt-get install -y git
-          git --version
   
           '''
         }
+      }
+      stage('Build artifact'){
+        steps {
+          sh '''
+          echo "test"
+          git --version
+          
+          '''
+        }
+
       }
     }
 }
