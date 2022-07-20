@@ -1,5 +1,10 @@
-pipeline {
-  agent { dockerfile true }
+pipeline{
+    agent {
+        docker{
+            image 'ubuntu:18.04'
+            args '-u root'
+            label 'docker'
+        }
   stages {
     stage('Test') {
       steps {
