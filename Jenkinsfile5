@@ -5,6 +5,7 @@ pipeline {
       steps {
         sh '''
           git --version
+          python --version
         '''
       }
     }
