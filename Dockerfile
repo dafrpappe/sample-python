@@ -8,7 +8,6 @@ ENV LANG en_US.utf8
 ENV PATH /usr/local/bin:$PATH
 
 RUN apt-get install -y python3
-RUN find / -name -type f "python*"
 CMD [“echo”,”Image created”]
 
 
