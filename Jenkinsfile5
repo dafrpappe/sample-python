@@ -9,5 +9,18 @@ pipeline {
         '''
       }
     }
+    stage('Clone code from Git repository and setup python env'){
+        steps{
+            sh 'git clone https://github.com/dafrpappe/sample-python.git'
+
+        }
+    }   
+    stage('Build artifact'){
+      steps {
+        sh '''
+        python3 hello_world.py
+        
+        '''
+    }    
   }
 }

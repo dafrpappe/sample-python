@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y locales && apt-get install -y git && ap
 ENV LANG en_US.utf8
 
 RUN apt-get install -y python3
+RUN pip install -r requirements.txt
 CMD [“echo”,”Image created”]
 
 
