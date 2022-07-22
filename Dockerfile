@@ -6,6 +6,7 @@ ENV LANG en_US.utf8
 
 RUN apt-get install -y python3
 CMD [“echo”,”Image created”]
+RUN python3 -V
 
 
 
