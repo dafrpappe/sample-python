@@ -14,7 +14,7 @@ pipeline {
             sh 'git clone https://github.com/dafrpappe/sample-python.git'
 
         }
-    }   
+    }
     stage('Build artifact'){
       steps {
         sh '''
@@ -23,4 +23,5 @@ pipeline {
         '''
     }    
   }
+ }
 }
