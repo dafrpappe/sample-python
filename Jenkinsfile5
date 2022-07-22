@@ -4,15 +4,9 @@ pipeline {
           } 
         }
   stages {
-    stage('Build') {
-      steps {
-        // Clean before build
-        cleanWs()
-
-      }
-    }
     stage('Clone code from Git repository and setup python env'){
         steps{
+            cleanWs()
             sh 'git clone https://github.com/dafrpappe/sample-python.git'
             sh 'pip3 install -r requirements.txt'
 
