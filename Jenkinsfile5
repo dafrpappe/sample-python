@@ -1,12 +1,18 @@
 pipeline {
-  agent { dockerfile { args '-u root' } }
+  agent { dockerfile {
+            args '-u root' 
+          } 
+        }
+  options {
+    // This is required if you want to clean before build
+    skipDefaultCheckout(true)
+  }
   stages {
-    stage('Test') {
+    stage('Build') {
       steps {
-        sh '''
-          git --version
-          python3 --version
-        '''
+        // Clean before build
+        cleanWs()
+
       }
     }
     stage('Clone code from Git repository and setup python env'){
