@@ -6,7 +6,6 @@ ENV LANG en_US.utf8
 
 RUN apt-get install -y python3
 RUN apt install -y python3-pip
-RUN pip3 install -r requirements.txt
 CMD [“echo”,”Image created”]
 
 
