@@ -24,3 +24,8 @@ id=$(echo "$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 
 curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/dafrpappe/sample-python/releases/$id/assets?name=artifact.zip
 
 
++refs/heads/master:refs/remotes/origin/master +refs/heads/develop:refs/remotes/origin/develop
++refs/tags/main:refs/remotes/origin/tags/*
+
++refs/tags/*:refs/remotes/origin/tags/*
++refs/tags/*:refs/remotes/origin/tags/*

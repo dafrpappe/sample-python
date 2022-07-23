@@ -52,7 +52,10 @@ pipeline {
     stage('Build') {
       steps {
         // Clean before build
-        cleanWs()
+        sh '''
+           echo "Building artifact ....."
+
+        '''
 
       }
     }    
