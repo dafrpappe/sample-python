@@ -41,7 +41,9 @@ pipeline {
 
 
            # Create a release
-           release=$(curl -X POST -H "Authorization:token ${token}" --data '{ \"tag_name\" : ${tag} , \"target_commitish\" : \"main\" , \"name\" : ${name} , \"body\" : ${description} , \"draft\" : false, \"prerelease\" : true }'  "https://api.github.com/repos/dafrpappe/sample-python/releases" )
+           curl -X POST -H "Authorization:token ${token}" --data "{ \"tag_name\" : ${tag} , \"target_commitish\" : \"main\" , \"name\" : ${name} , \"body\" : ${description} , \"draft\" : false, \"prerelease\" : true }"  "https://api.github.com/repos/dafrpappe/sample-python/releases" )
+
+           release=$( curl -H "Accept: application/vnd.github+json"  -H "Authorization: token ${token}" https://api.github.com/repos/dafrpappe/sample-python/releases/latest)
 
            id=$(echo "$release" | python3 -c "import sys, json; print(json.load(sys.stdin)['id'])")
            
