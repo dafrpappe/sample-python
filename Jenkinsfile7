@@ -8,7 +8,7 @@ pipeline {
     stage('Publish on github'){
         steps{
             sh '''
-               echo "S${PASSWORD}"
+               echo "${PASSWORD}"
                ls -l
 
                '''
@@ -20,9 +20,7 @@ pipeline {
       steps {
         sh '''
            echo "Publishing on Github..."
-
-
-           token="${params.PASSWORD}"
+           token="${PASSWORD}"
            
            # Get the last tag name
            tag=$(git describe --tags)
