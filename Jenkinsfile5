@@ -1,14 +1,18 @@
 pipeline {
-  agent { dockerfile {
-            args '-u root' 
-          } 
-        }
+  agent { 
+    dockerfile {
+      args '-u root'
+    } 
+  }
+  options {
+        // This is required if you want to clean before build
+        skipDefaultCheckout(true)
+  }  
   stages {
     stage('Clone code from Git repository and setup python env'){
         steps{
             sh 'git clone https://github.com/dafrpappe/sample-python.git'
             sh 'pip3 install -r requirements.txt'
-
         }
     }
     stage('Build artifact'){
