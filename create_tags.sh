@@ -29,3 +29,5 @@ curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-s
 
 +refs/tags/*:refs/remotes/origin/tags/*
 +refs/tags/*:refs/remotes/origin/tags/*
+
+refs/tags/*
