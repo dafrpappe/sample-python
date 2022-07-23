@@ -10,7 +10,7 @@ pipeline {
             script { 
                 properties([
                     parameters([
-                       password(name: 'git-token', description: 'Encryption key')
+                       [$class: 'hudson.model.PasswordParameterValue', name: 'PASSWORD', value: env.PASSWORD]
                     ])
                 ])
             }
@@ -19,7 +19,7 @@ pipeline {
     stage('Publish on github'){
         steps{
             sh '''
-               echo ${git-token}
+               echo "${PASSWORD}"
                rm -rf sample-python
                ls -l
                git clone https://github.com/dafrpappe/sample-python.git
@@ -36,7 +36,7 @@ pipeline {
            echo "Publishing on Github..."
 
            cd sample-python
-           token="${git-token}"
+           token="${PASSWORD}"
            
            # Get the last tag name
            tag=$(git describe --tags)
