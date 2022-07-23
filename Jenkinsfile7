@@ -23,6 +23,8 @@ pipeline {
            token="${PASSWORD}"
 
            ls -l
+
+           chown  -R root:root ../sample-python/
            
            # Get the last tag name
            tag=$(git describe --tags)
