@@ -3,19 +3,19 @@ pipeline {
     dockerfile {
       args '-u root'
     } 
-  }
-  stage('Setup parameters') {
-      steps {
-          script { 
-              properties([
-                  parameters([
-                     password(name: 'git-token', description: 'Encryption key')
-                  ])
-              ])
-          }
-      }
-  }  
+  } 
   stages {
+    stage('Setup parameters') {
+        steps {
+            script { 
+                properties([
+                    parameters([
+                       password(name: 'git-token', description: 'Encryption key')
+                    ])
+                ])
+            }
+        }
+    }     
     stage('Publish on github'){
         steps{
             sh '''
@@ -23,10 +23,7 @@ pipeline {
                rm -rf sample-python
                ls -l
                git clone https://github.com/dafrpappe/sample-python.git
-               chown -R jenkins:jenkins
-               echo "Publishing on Github..."
-               chmod 777 create_tags.sh
-               ./create_tags.sh
+
 
                '''
 
@@ -42,19 +39,7 @@ pipeline {
            # Get the last tag name
            tag=$(git describe --tags)
            
-           # Get the full message associated with this tag
-           message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
-           
-           # Get the title and the description as separated variables
-           name=$(echo "$message" | head -n1)
-           description=$(echo "$message" | tail -n +3)
-           description=$(echo "$description" | sed -z 's/\n/\\n/g') # Escape line breaks to prevent json parsing problems
-           
-           # Create a release
-           release=$(curl -XPOST -H "Authorization:token $token" --data "{\"tag_name\": \"$tag\", \"target_commitish\": \"main\", \"name\": \"$name\", \"body\": \"$description\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/dafrpappe/sample-python/releases)
-           
 
-        
         '''
       }    
     }
