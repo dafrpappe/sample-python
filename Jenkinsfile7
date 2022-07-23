@@ -41,6 +41,16 @@ pipeline {
            # Get the last tag name
            tag=$(git describe --tags)
            
+           # Get the full message associated with this tag
+           message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
+           # Get the title and the description as separated variables
+           name=$(echo "$message" | head -n1)
+           description=$(echo "$message" | tail -n +3)
+           description=$(echo "$description" | sed -z 's/\n/\\n/g') # Escape line breaks to prevent json parsing problems
+           
+           # Create a release
+           release=$(curl -XPOST -H "Authorization:token $token" --data "{\"tag_name\": \"$tag\", \"target_commitish\": \"main\", \"name\": \"$name\", \"body\": \"$description\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/dafrpappe/sample-python/releases)
+
 
         '''
       }    
