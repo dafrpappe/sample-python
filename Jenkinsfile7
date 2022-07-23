@@ -4,22 +4,11 @@ pipeline {
       args '-u root'
     } 
   } 
-  stages {
-    stage('Setup parameters') {
-        steps {
-            script { 
-                properties([
-                    parameters([
-                       [$class: 'hudson.model.PasswordParameterValue', name: 'PASSWORD', value: env.PASSWORD]
-                    ])
-                ])
-            }
-        }
-    }     
+  stages {    
     stage('Publish on github'){
         steps{
             sh '''
-               echo "${PASSWORD}"
+               echo "S${PASSWORD}"
                rm -rf sample-python
                ls -l
                git clone https://github.com/dafrpappe/sample-python.git
@@ -36,7 +25,7 @@ pipeline {
            echo "Publishing on Github..."
 
            cd sample-python
-           token="${PASSWORD}"
+           token="${params.PASSWORD}"
            
            # Get the last tag name
            tag=$(git describe --tags)
