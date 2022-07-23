@@ -24,7 +24,7 @@ pipeline {
 
            ls -l
 
-           chown  -R root:root ../sample-python/
+           chown  -R root:root *
            
            # Get the last tag name
            tag=$(git describe --tags)
