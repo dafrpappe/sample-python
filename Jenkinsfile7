@@ -8,6 +8,7 @@ pipeline {
     stage('Publish on github'){
         steps{
             sh 'echo "Publishing on Github..."'
+            sh 'chmod +x create_tags.sh'
             sh './create_tags.sh'
 
         }
