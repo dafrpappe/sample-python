@@ -34,7 +34,8 @@ pipeline {
       steps {
         sh '''
            echo "Publishing on Github..."
-           token=""
+           git congig --local user.name 'dafrpappe'
+           token="${git-token}"
            
            # Get the last tag name
            tag=$(git describe --tags)
