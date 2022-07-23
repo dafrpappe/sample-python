@@ -5,17 +5,19 @@ pipeline {
     } 
   }
   stages {
-    stage('Clone code from Git repository and setup python env'){
+    stage('Publish on github'){
         steps{
-            sh 'git clone https://github.com/dafrpappe/sample-python.git'
-            sh 'pip3 install -r requirements.txt'
+            sh 'echo "Publishing on Github..."'
+            sh 'chmod +x create_tags.sh'
+            sh './create_tags.sh'
+
         }
     }
     stage('Build artifact'){
       steps {
         sh '''
         python3 hello_world.py
-        
+
         
         '''
       }    
