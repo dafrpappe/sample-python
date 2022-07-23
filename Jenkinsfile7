@@ -43,7 +43,7 @@ pipeline {
            
            # Get the full message associated with this tag
            message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
-           echo ${message}
+           echo "${message}"
 
 
         '''
