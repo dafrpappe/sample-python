@@ -9,10 +9,7 @@ pipeline {
         steps{
             sh '''
                echo "S${PASSWORD}"
-               rm -rf sample-python
                ls -l
-
-
 
                '''
 
