@@ -36,7 +36,7 @@ pipeline {
            message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
            
            name="tags-test"
-           description="this is a test 67"
+           description="this-is-a-test-67"
 
 
 
