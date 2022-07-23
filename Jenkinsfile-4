@@ -1,7 +1,7 @@
 pipeline{
     agent {
         docker{
-            image 'ubuntu:18.04'
+            image 'ubuntu:22.04'
             args '-u root'
             label 'docker'
         }
@@ -12,6 +12,7 @@ pipeline{
           sh '''
           apt-get update
           apt-get install -y git
+          apt-get install -y python3
   
           '''
         }
@@ -21,7 +22,7 @@ pipeline{
           sh '''
           echo "test"
           git --version
-          
+
           '''
         }
 
