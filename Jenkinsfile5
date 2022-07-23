@@ -7,6 +7,7 @@ pipeline {
   stages {
     stage('Clone code from Git repository and setup python env'){
         steps{
+            sh 'rm -rf sample-python'
             sh 'git clone https://github.com/dafrpappe/sample-python.git'
             sh 'pip3 install -r requirements.txt'
         }
