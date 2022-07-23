@@ -11,7 +11,7 @@ pipeline {
                echo "S${PASSWORD}"
                rm -rf sample-python
                ls -l
-               git clone https://github.com/dafrpappe/sample-python.git
+
 
 
                '''
