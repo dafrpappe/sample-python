@@ -1,7 +1,7 @@
 # Publish on github
 
 echo "Publishing on Github..."
-token="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"
+token="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"
 
 # Get the last tag name
 tag=$(git describe --tags)
