@@ -22,7 +22,6 @@ pipeline {
                echo ${git-token}
                rm -rf sample-python
                ls -l
-               git init
                git clone https://github.com/dafrpappe/sample-python.git
 
 
@@ -35,8 +34,8 @@ pipeline {
       steps {
         sh '''
            echo "Publishing on Github..."
-           git config --local user.name 'dafrpappe'
-           git config --global --add safe.directory 
+
+           cd sample-python
            token="${git-token}"
            
            # Get the last tag name
