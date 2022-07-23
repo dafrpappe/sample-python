@@ -21,7 +21,7 @@ pipeline {
         sh '''
            echo "Publishing on Github..."
 
-           cd sample-python
+
            token="${params.PASSWORD}"
            
            # Get the last tag name
