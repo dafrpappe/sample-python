@@ -50,12 +50,12 @@ pipeline {
 
 
            # Create a release
-           release=$(curl -XPOST -H "Authorization:token ${token}" --data "{\"tag_name\": \"$tag\", \"target_commitish\": \"main\", \"name\": \"$name\", \"body\": \"$description\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/dafrpappe/sample-python/releases)
+           release=$(curl -X POST -H "Authorization:token ${token}" --data '{"tag_name": "$tag", "target_commitish": "main", "name": "$name", "body": "$description", "draft": false, "prerelease": true}' https://api.github.com/repos/dafrpappe/sample-python/releases)
 
            id=$(echo "$release" | python -c "import sys, json; print(json.load(sys.stdin)['id'])"
            
            # Upload the artifact
-           curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-stream"  https://uploads.github.com/repos/dafrpappe/sample-python/releases/${id}/assets?name=artifact.zip
+           curl -X POST -H "Authorization:token $token" -H "Content-Type:application/octet-stream"  https://uploads.github.com/repos/dafrpappe/sample-python/releases/${id}/assets?name=artifact.zip
 
            echo "DONE"
 
