@@ -21,6 +21,8 @@ pipeline {
         sh '''
            echo "Publishing on Github..."
            token="${PASSWORD}"
+
+           ls -l
            
            # Get the last tag name
            tag=$(git describe --tags)
