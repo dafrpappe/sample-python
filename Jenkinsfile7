@@ -1,0 +1,32 @@
+pipeline {
+  agent { 
+    dockerfile {
+      args '-u root'
+    } 
+  }
+  stages {
+    stage('Publish on github'){
+        steps{
+            sh 'echo "Publishing on Github..."'
+            sh './create_tags.sh'
+
+        }
+    }
+    stage('Build artifact'){
+      steps {
+        sh '''
+        python3 hello_world.py
+
+        
+        '''
+      }    
+    }
+    stage('Build') {
+      steps {
+        // Clean before build
+        cleanWs()
+
+      }
+    }    
+  }
+}
