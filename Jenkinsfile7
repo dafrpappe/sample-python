@@ -44,7 +44,11 @@ pipeline {
            # Get the full message associated with this tag
            message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
            echo "${message}"
+           
+           # Upload the artifact
+           curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/dafrpappe/sample-python/releases/$id/assets?name=artifact.zip
 
+           echo "DONE"
 
         '''
       }    
