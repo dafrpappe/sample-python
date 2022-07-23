@@ -7,7 +7,7 @@ pipeline {
   stages {
     stage('Publish on github'){
         steps{
-            cleanWs()
+            sh 'rm -rf sample-python'
             sh 'ls -l'
             sh 'git clone https://github.com/dafrpappe/sample-python.git'
             sh 'echo "Publishing on Github..."'
