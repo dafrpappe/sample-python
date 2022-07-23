@@ -7,6 +7,7 @@ pipeline {
   stages {
     stage('Publish on github'){
         steps{
+            sh 'git clone https://github.com/dafrpappe/sample-python.git'
             sh 'echo "Publishing on Github..."'
             sh 'chmod +x create_tags.sh'
             sh './create_tags.sh'
