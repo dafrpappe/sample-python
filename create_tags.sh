@@ -1,26 +1,26 @@
 # Publish on github
+
 echo "Publishing on Github..."
-token="<YOUR GITHUB ACCESS TOKEN>"
+token="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"
+
 # Get the last tag name
 tag=$(git describe --tags)
+
 # Get the full message associated with this tag
 message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
+
 # Get the title and the description as separated variables
 name=$(echo "$message" | head -n1)
 description=$(echo "$message" | tail -n +3)
 description=$(echo "$description" | sed -z 's/\n/\\n/g') # Escape line breaks to prevent json parsing problems
+
 # Create a release
-release=$(curl -XPOST -H "Authorization:token $token" --data "{\"tag_name\": \"$tag\", \"target_commitish\": \"master\", \"name\": \"$name\", \"body\": \"$description\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/<USERNAME>/<REPOSITORY>/releases)
+release=$(curl -XPOST -H "Authorization:token $token" --data "{\"tag_name\": \"$tag\", \"target_commitish\": \"master\", \"name\": \"$name\", \"body\": \"$description\", \"draft\": false, \"prerelease\": true}" https://api.github.com/repos/dafrpappe/sample-python/releases)
+
 # Extract the id of the release from the creation response
 id=$(echo "$release" | sed -n -e 's/"id":\ \([0-9]\+\),/\1/p' | head -n 1 | sed 's/[[:blank:]]//g')
+
 # Upload the artifact
-curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/<USERNAME>/<REPOSITORY>/releases/$id/assets?name=artifact.zip
-You can find the Github API documentation here.
-
-Conclusion
-Publishing releases on Github when a tag is pushed and using Jenkins is not that hard but not possible natively in the Jenkins Github plugin. I hope this guide helped you! Enjoy your automated releases !
-
-453
+curl -XPOST -H "Authorization:token $token" -H "Content-Type:application/octet-stream" --data-binary @artifact.zip https://uploads.github.com/repos/dafrpappe/sample-python/releases/$id/assets?name=artifact.zip
 
 
-6
