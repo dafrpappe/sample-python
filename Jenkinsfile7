@@ -29,7 +29,7 @@ pipeline {
  
            echo "$GIT_TAG"
            
-           jsonString = '{ "tag_name" : "$GIT_TAG" , "target_commitish" : "main" , "name" : "$GIT_MAME" , "draft" : false, "prerelease" : true }'
+           jsonString =  "json-Strng"
  
         }
         
