@@ -23,7 +23,7 @@ pipeline {
         script {
 
            sh '''
-              git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile'
+              git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile
               echo ${GIT_TAG}
               jsonData="{ \"tag_name\" : \"$GIT_TAG\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }""
                    
