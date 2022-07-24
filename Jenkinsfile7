@@ -48,7 +48,7 @@ pipeline {
 
            
 
-           id=$(echo "$release" | jq '.\"id\"')
+           id=$(echo "$release" | jq \'.\"id\"\')
            
            # Upload the artifact
            curl -X POST -H "Authorization:token $token" -H "Content-Type:application/octet-stream"  https://uploads.github.com/repos/dafrpappe/sample-python/releases/${id}/assets?name=artifact.zip
