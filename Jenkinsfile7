@@ -38,8 +38,7 @@ pipeline {
            description="this-is-a-test-67"      
         '''           
         def props = readJSON text: '{ "tag_name" : "$tag" , "target_commitish" : "main" , "name" : "$name" , "body" : "$description" , "draft" : false, "prerelease" : true }'
-        def keyList = props.keySet()
-        echo "${keyList}"
+
         sh '''
            token="${PASSWORD}"
            release=$(curl -X POST -H "Authorization:token ${token}" \
