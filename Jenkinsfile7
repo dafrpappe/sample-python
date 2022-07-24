@@ -33,7 +33,8 @@ pipeline {
            sh "echo ${GIT_TAG}"    
 
            props = readJSON text: '{ "key": "value" }'
-           sh "echo ${props.key}"  
+
+           props.each { key, value -> echo "Walked through key $key and value $value"}
 
         }        
       }    
