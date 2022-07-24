@@ -43,11 +43,11 @@ pipeline {
 
            # Create a release
            release=$(curl -X POST -H "Authorization:token ${token}" \
-                              --data '{ \"tag_name\" : $tag 
+                              --data '\{ \"tag_name\" : \"$tag\"
                                       , \"target_commitish\" : \"main\" 
-                                      , \"name\" : $name
+                                      , \"name\" : \"$name\"
                                       , \"draft\" : false
-                                      , \"prerelease\" : true }' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
+                                      , \"prerelease\" : true \}' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
         
  
            id=$(echo "${release}" | python3 -c "import sys, json; print(json.load(sys.stdin)['id'])" )
