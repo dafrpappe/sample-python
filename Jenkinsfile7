@@ -25,14 +25,15 @@ pipeline {
             
            GIT_TAG = sh(returnStatus: true, script: 'git describe --tags') 
            return GIT_TAG
-           
- 
+            
            echo "$GIT_TAG"
-           
-           JSON_TEXT = sh(returnStdout: true, script:'echo "test test test test"')
 
-           echo "$JSON_TEXT"
-        }        
+        }
+        def jsonString = '{"name":"katone","age":5}'
+        def jsonObj = readJSON text: jsonString
+
+        sh "echo ${jsonObj.name}"
+        sh "echo ${jsonObj.age}"  
       }    
     }
     stage('Build') {
