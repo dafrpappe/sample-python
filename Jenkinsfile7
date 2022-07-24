@@ -29,7 +29,10 @@ pipeline {
            git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
 
            # Get the last tag name
-           tag=$(git describe --tags)
+           git_tag=$(git describe --tags)
+           var=$(echo $git_tag | awk -F '-' {'print $1'})
+           var2=$(echo $git_tag | awk -F '-' {'print $2'})
+           tag=$(echo $var.$var2)
            
            # Get the full message associated with this tag
            message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
