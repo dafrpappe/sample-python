@@ -29,7 +29,7 @@ pipeline {
  
            echo "$GIT_TAG"
            
-           JSON_TEXT = sh(returnStdout: true, script:'echo "{ \"tag_name\" : \"$GIT_TAG\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"')
+           JSON_TEXT = sh(returnStdout: true, script:'echo "test test test test"')
 
            echo "$JSON_TEXT"
         }        
