@@ -1,6 +1,9 @@
 
 def jsonData
-def gitTag
+
+def jsonText ( String gitTag ){
+    def jsonData = "{ \"tag_name\" : \"gitTag\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
+}
 
 pipeline {
   agent { 
@@ -27,19 +30,17 @@ pipeline {
 
            sh '''
               git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile
-
+              gitTag=$(git describe --tags)
               '''
            
-           gitTag = sh'$(git describe --tags)'
-           echo "$gitTag"
+           jsoner = jsonText(sh '$(git describe --tags)')
 
-           jsonData="{ \"tag_name\" : \"$gitTag\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
 
-           echo "$jsonData"
+           echo "$jsoner"
            sh '''   
                    
-              echo "Building jsonData ....."     
-              echo "$jsonData"
+              echo "Building jsoner ....."     
+              echo "$jsoner"
 
            '''           
 
