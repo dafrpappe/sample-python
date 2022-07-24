@@ -35,7 +35,8 @@ pipeline {
           env.DESCRIPTION = sh( script: 'echo "this-is-a-test-67"', returnStdout: true ).trim()
     
         sh '''
-           echo "${env.NAME}"  
+           echo ${env.NAME}
+           echo ${env.TAG}
            echo "Creating tag release..."
            token="${PASSWORD}"
            release=$(curl -X POST -H "Authorization:token ${token}" \
