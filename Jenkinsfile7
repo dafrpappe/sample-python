@@ -29,14 +29,10 @@ pipeline {
  
            echo "$GIT_TAG"
            
-           jsonString =  "json-Strng"
- 
-        }
-        
-        sh "echo ${jsonString}"
-      
+           JSON_TEXT = sh(returnStatus: true, script:'{ "tag_name" : "$GIT_TAG" , "target_commitish" : "main" , "name" : "$GIT_MAME" , "draft" : false, "prerelease" : true }')
 
-        
+           echo "$JSON_TEXT"
+        }        
       }    
     }
     stage('Build') {
