@@ -36,7 +36,7 @@ pipeline {
           DESCRIPTION = sh( script: 'echo "this-is-a-test-67"', returnStdout: true ).trim()
     
         sh '''
-           echo ${DESCRIPTION}   
+           echo "${DESCRIPTION}"  
            echo "Creating tag release..."
            token="${PASSWORD}"
            release=$(curl -X POST -H "Authorization:token ${token}" \
