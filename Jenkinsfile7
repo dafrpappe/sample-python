@@ -1,4 +1,6 @@
 
+def jsonData
+
 pipeline {
   agent { 
     dockerfile {
@@ -25,7 +27,10 @@ pipeline {
            sh '''
               git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile
 
-              jsonData="{ \"tag_name\" : \"test\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
+              '''
+           jsonData="{ \"tag_name\" : \"test\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
+           
+           sh '''   
                    
               echo "Building jsonData ....."     
               echo "$jsonData"
