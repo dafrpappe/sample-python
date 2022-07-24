@@ -34,7 +34,7 @@ pipeline {
 
            props = readJSON text: '{ "key": "value" }'
 
-           props.each { key, value -> echo "Walked through key $key and value $value"}
+           echo "props.key"
 
         }        
       }    
