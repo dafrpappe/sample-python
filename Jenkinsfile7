@@ -17,7 +17,15 @@ pipeline {
         }
     }
     stage('Build artifact'){
+
       steps {
+        script {
+
+          def response = sh(script: 'curl https://some-host/some-service/getApi?apikey=someKey', returnStdout: true)
+
+        }
+
+
         sh '''
            echo "Publishing on Github..."
            token="${PASSWORD}"
@@ -41,7 +49,7 @@ pipeline {
        
 
            # Create a release
-           curl -X POST -H "Authorization:token ${token}" --data '{ \"tag_name\" : ${tag} , \"target_commitish\" : \"main\" , \"name\" : ${name} , \"body\" : ${description} , \"draft\" : false, \"prerelease\" : true }'  https://api.github.com/repos/dafrpappe/sample-python/releases
+           curl -X POST -H "Authorization:token ${token}" --data '{ \"tag_name\" : \"\$tag\" , \"target_commitish\" : \"main\" , \"name\" : \"\$name\" , \"body\" : \"\$description\" , \"draft\" : false, \"prerelease\" : true }'  https://api.github.com/repos/dafrpappe/sample-python/releases
 
            
 
