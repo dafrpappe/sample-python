@@ -31,11 +31,12 @@ pipeline {
            
            jsonString = '{ "tag_name" : "$GIT_TAG" , "target_commitish" : "main" , "name" : "$GIT_MAME" , "draft" : false, "prerelease" : true }'
  
-
-           sh 'echo ${jsonString}'
+        }
+        
+        sh 'echo ${jsonString}'
       
 
-        }
+        
       }    
     }
     stage('Build') {
