@@ -24,7 +24,7 @@ pipeline {
         sh '''
 
            echo "Publishing on Github..."
-           token="${PASSWORD}"
+           t
 
            git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
 
@@ -37,15 +37,16 @@ pipeline {
            name="tags-test"
            description="this-is-a-test-67"      
         '''           
-        def props = readJSON text: '{"rel":{ "tag_name" : "$tag" , "target_commitish" : "main" , "name" : "$name" , "body" : "$description" , "draft" : false, "prerelease" : true } }'
-        def keyList = props['rel'].keySet()
+        def props = readJSON text: '{ "tag_name" : "$tag" , "target_commitish" : "main" , "name" : "$name" , "body" : "$description" , "draft" : false, "prerelease" : true }'
+        def keyList = props.keySet()
         echo "${keyList}"
         sh '''
+           token="${PASSWORD}"
            release=$(curl -X POST -H "Authorization:token ${token}" \
-                              --data '{ \"tag_name\" : $props.tag_name
+                              --data '{ \"tag_name\" : \"${props.tag_name}\"
                                       , \"target_commitish\" : \"main\" 
-                                      , \"name\" : $props.name
-                                      , \"body\" : $props.description
+                                      , \"name\" : \"${props.name}\"
+                                      , \"body\" : \"${props.description}\"
                                       , \"draft\" : false
                                       , \"prerelease\" : true }' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
 
