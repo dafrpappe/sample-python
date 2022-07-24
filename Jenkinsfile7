@@ -32,7 +32,7 @@ pipeline {
            def jsonString = '{ "tag_name" : "$GIT_TAG" , "target_commitish" : "main" , "name" : "$GIT_MAME" , "draft" : false, "prerelease" : true }'
            def jsonObj = readJSON text: jsonString
 
-           sh "echo ${jsonObj.tag_name}"
+           sh 'echo ${jsonObj.tag_name}'
       
 
         }
