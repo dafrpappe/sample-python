@@ -23,8 +23,7 @@ pipeline {
 
         sh '''
 
-           echo "Publishing on Github..."
-           
+           echo "Publishing on Github...===="           
 
            git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
 
