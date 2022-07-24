@@ -23,12 +23,13 @@ pipeline {
 
            sh 'git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile'      
             
-           GIT_TAG = sh(returnStatus: true, script: 'git describe --tags') 
-           return GIT_TAG
+           GIT_TAG = sh(returnStatus: true, script: 'git describe --tags').trim()
+
             
-           echo "$GIT_TAG"
+           println(GIT_TAG)
 
         }
+
         def jsonString = '{"name":"katone","age":5}'
         def jsonObj = readJSON text: jsonString
 
