@@ -50,8 +50,7 @@ pipeline {
                                       , \"name\" : \"$name\" 
                                       , \"body\" : \"$description\" 
                                       , \"draft\" : false
-                                      , \"prerelease\" : true }'  
-                    https://api.github.com/repos/dafrpappe/sample-python/releases )
+                                      , \"prerelease\" : true }' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
         
  
 
