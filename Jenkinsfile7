@@ -19,11 +19,6 @@ pipeline {
     stage('Build artifact'){
 
       steps {
-        script {
-
-          def response = sh(script: 'curl https://some-host/some-service/getApi?apikey=someKey', returnStdout: true)
-
-        }
 
 
         sh '''
