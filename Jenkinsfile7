@@ -32,7 +32,7 @@ pipeline {
            
            sh "echo ${GIT_TAG}"    
 
-           def props = readJSON text: '{ "key": "value" }'
+           props = readJSON text: '{ "key": "value" }'
            sh "echo ${props.key}"  
 
         }        
