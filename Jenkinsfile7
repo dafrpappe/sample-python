@@ -27,12 +27,12 @@ pipeline {
            GIT_TAG = sh(returnStatus: true, script: 'git describe --tags') 
            return GIT_TAG
            
-           sh "echo ${GIT_TAG}"    
 
            sh '''
-   
+              echo ${GIT_TAG}
               jsonData="{ \"tag_name\" : \"$GIT_TAG\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }""
                    
+              echo "Building jsonData ....."     
               echo "$jsonData"
 
            '''           
