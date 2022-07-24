@@ -9,8 +9,8 @@ pipeline {
         steps{
             sh '''
                echo "${PASSWORD}"
-
-
+               mkdir sample-python
+               cd sample-python
                '''
 
 
