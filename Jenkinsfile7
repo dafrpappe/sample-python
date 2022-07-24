@@ -37,8 +37,8 @@ pipeline {
            name="tags-test"
            description="this-is-a-test-67"      
         '''           
-        def props = readJSON text: '{ "tag_name" : "$tag" , "target_commitish" : "main" , "name" : "$name" , "body" : "$description" , "draft" : false, "prerelease" : true }'
-        def keyList = props['text'].keySet()
+        def props = readJSON text: '{"rel":{ "tag_name" : "$tag" , "target_commitish" : "main" , "name" : "$name" , "body" : "$description" , "draft" : false, "prerelease" : true } }'
+        def keyList = props['rel'].keySet()
         echo "${keyList}"
         '''
            release=$(curl -X POST -H "Authorization:token ${token}" \
