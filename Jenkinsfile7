@@ -21,13 +21,8 @@ pipeline {
       steps {
         script {
 
-        sh '''
-
-           echo "Publishing on Github...===="           
-
-           git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
-
-          '''
+           sh 'git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile '      
+            
            GIT_TAG = sh(returnStdout: true, script: 'git describe --tags') return GIT_TAG
            GIT_MAME = sh(returnStdout: true, script: 'echo "test release"') return GIT_MESSAGE
            GIT_DESCRIPTION = sh(returnStdout: true, script: 'echo "this is a test 67"') return GIT_MESSAGE
@@ -40,17 +35,7 @@ pipeline {
            def jsonObj = readJSON text: jsonString
 
            sh "echo ${jsonObj.tag_name}"
-
-         '''  
-           # Get the full message associated with this tag                    
-
-
-           echo "DONE"
-           
-
-
-
-        '''          
+      
 
         }
       }    
