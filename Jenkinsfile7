@@ -28,10 +28,6 @@ pipeline {
 
            ls -l
 
-           rm -rf sample-python
-
-           git clone https://github.com/dafrpappe/sample-python.git
-           cd sample-python
            
            # Get the last tag name
            tag=$(git describe --tags)
