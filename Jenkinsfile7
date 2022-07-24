@@ -1,5 +1,6 @@
 
 def jsonData
+def gitTag
 
 pipeline {
   agent { 
@@ -28,10 +29,11 @@ pipeline {
               git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile
 
               '''
-           GIT_TAG = sh(returnStatus: true, script: 'git describe --tags') 
-           return GIT_TAG
+           gitTag = sh(returnStatus: true, script: 'git describe --tags')
 
-           jsonData="{ \"tag_name\" : \"$GIT_TAG\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
+           echo "$gitTag"
+
+           jsonData="{ \"tag_name\" : \"$gitTag\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
 
            echo "$jsonData"
            sh '''   
