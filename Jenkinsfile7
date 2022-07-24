@@ -6,8 +6,9 @@ pipeline {
   } 
   stages {    
     stage('Publish on github'){
-        cleanWs()
+
         steps{
+            cleanWs()
             sh '''
                echo "${PASSWORD}"
                mkdir sample-python
