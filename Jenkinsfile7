@@ -29,9 +29,8 @@ pipeline {
               git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile
 
               '''
-           gitTag = sh('git describe --tags')
-
-
+           
+           gitTag = sh'$(git describe --tags)'
            echo "$gitTag"
 
            jsonData="{ \"tag_name\" : \"$gitTag\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
