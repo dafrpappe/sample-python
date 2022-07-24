@@ -27,14 +27,9 @@ pipeline {
 
             
            println(GIT_TAG)
+           sh "echo ${GIT_TAG}"
 
         }
-
-        def jsonString = '{"name":"katone","age":5}'
-        def jsonObj = readJSON text: jsonString
-
-        sh "echo ${jsonObj.name}"
-        sh "echo ${jsonObj.age}"  
       }    
     }
     stage('Build') {
