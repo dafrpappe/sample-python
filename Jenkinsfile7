@@ -26,13 +26,6 @@ pipeline {
            GIT_TAG = sh(returnStdout: true, script: 'git describe --tags') 
            return GIT_TAG
            
-           GIT_MAME = sh(returnStdout: true, script: 'echo "test release"') 
-           return GIT_MESSAGE
-           
-           GIT_DESCRIPTION = sh(returnStdout: true, script: 'echo "this is a test 67"') 
-           return GIT_MESSAGE
-
-           GIT_JSON= sh(returnStdout: true, script: 'echo "this is a test 67"') return GIT_MESSAGE
  
            echo "$GIT_TAG"
            
