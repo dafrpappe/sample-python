@@ -1,8 +1,3 @@
-def COLOR_MAP = ["SUCCESS": "good", "FAILURE":"danger"]
-def props
-
-String cmd = "curl -s -H \"Authorization: token ${password}\" ${url}"
-String example = 'curl -s -H "Authorization: token XXX" https://api.github.com/repos/tdongsi/groovy/pulls/2'
 
 pipeline {
   agent { 
@@ -27,9 +22,15 @@ pipeline {
       steps {
         script {
 
-           sh '''
-              git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile
+           sh 'git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile'      
+            
+           GIT_TAG = sh(returnStatus: true, script: 'git describe --tags') 
+           return GIT_TAG
+           
+           sh "echo ${GIT_TAG}"    
 
+           sh '''
+   
               jsonData="{ \"tag_name\" : \"$GIT_TAG\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }""
                    
               echo "$jsonData"
