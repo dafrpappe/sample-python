@@ -19,16 +19,15 @@ pipeline {
     stage('Build artifact'){
 
       steps {
-        
+        script {
 
         sh '''
 
            echo "Publishing on Github..."
            token="${PASSWORD}"
 
-           ls -l
+           git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
 
-           git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile           
            # Get the last tag name
            tag=$(git describe --tags)
            
@@ -52,12 +51,15 @@ pipeline {
            id=$(echo "${release}" | python3 -c "import sys, json; print(json.load(sys.stdin)['id'])" )
            
            # Upload the artifact
-           curl -X POST -H "Authorization:token $token" -H "Content-Type:application/octet-stream"  https://uploads.github.com/repos/dafrpappe/sample-python/releases/${id}/assets?name=artifact.zip
+           curl -X POST -H "Authorization:token ${token}" \
+                        -H "Content-Type:application/octet-stream"  https://uploads.github.com/repos/dafrpappe/sample-python/releases/${id}/assets?name=artifact.zip
 
            echo "DONE"
 
 
-        '''
+        '''          
+
+        }
       }    
     }
     stage('Build') {
