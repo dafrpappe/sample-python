@@ -6,6 +6,7 @@ pipeline {
   } 
   stages {    
     stage('Publish on github'){
+        cleanWs()
         steps{
             sh '''
                echo "${PASSWORD}"
@@ -19,7 +20,7 @@ pipeline {
     stage('Build artifact'){
 
       steps {
-        cleanWs()
+        
 
         sh '''
            echo "Publishing on Github..."
