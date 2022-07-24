@@ -30,20 +30,19 @@ pipeline {
 
            # Get the last tag name
           '''
-
-          TAG = sh( script: 'git describe --tags', returnStdout: true ).trim()
-          NAME = sh( script: 'echo "tags-test"', returnStdout: true ).trim()
-          DESCRIPTION = sh( script: 'echo "this-is-a-test-67"', returnStdout: true ).trim()
+          env.TAG = sh( script: 'git describe --tags', returnStdout: true ).trim()
+          env.NAME = sh( script: 'echo "tags-test"', returnStdout: true ).trim()
+          env.DESCRIPTION = sh( script: 'echo "this-is-a-test-67"', returnStdout: true ).trim()
     
         sh '''
-           echo "${DESCRIPTION}"  
+           echo "${env.NAME}"  
            echo "Creating tag release..."
            token="${PASSWORD}"
            release=$(curl -X POST -H "Authorization:token ${token}" \
-                              --data '{ \"tag_name\" : \"${TAG}\"
+                              --data '{ \"tag_name\" : \"${env.TAG }\"
                                       , \"target_commitish\" : \"main\" 
-                                      , \"name\" : \"${NAME}\
-                                      , \"body\" : \${DESCRIPTION}\"
+                                      , \"name\" : \"${env.NAME}\
+                                      , \"body\" : \${env.DESCRIPTION}\"
                                       , \"draft\" : false
                                       , \"prerelease\" : true }' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
 
