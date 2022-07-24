@@ -8,11 +8,9 @@ pipeline {
     stage('Publish on github'){
 
         steps{
-            cleanWs()
             sh '''
                echo "${PASSWORD}"
-               mkdir sample-python
-               cd sample-python
+
                '''
 
 
@@ -24,6 +22,7 @@ pipeline {
         
 
         sh '''
+
            echo "Publishing on Github..."
            token="${PASSWORD}"
 
