@@ -1,3 +1,7 @@
+def COLOR_MAP = ["SUCCESS": "good", "FAILURE":"danger"]
+def props
+
+
 pipeline {
   agent { 
     dockerfile {
@@ -26,9 +30,10 @@ pipeline {
            GIT_TAG = sh(returnStatus: true, script: 'git describe --tags') 
            return GIT_TAG
            
+           sh "echo ${GIT_TAG}"    
 
-           println(GIT_TAG)
-           sh "echo ${GIT_TAG}"           
+           def props = readJSON text: '{ "key": "value" }'
+           sh "echo ${props.key}"  
 
         }        
       }    
