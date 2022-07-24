@@ -29,24 +29,20 @@ pipeline {
            git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
 
            # Get the last tag name
-           tag=$(git describe --tags)
-           
-           # Get the full message associated with this tag
-           message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
-           
-           name="tags-test"
-           description="this-is-a-test-67"      
-        '''           
-        def props = readJSON text: '{ "tag_name" : "$tag" , "target_commitish" : "main" , "name" : "$name" , "body" : "$description" , "draft" : false, "prerelease" : true }'
-        props.each { key, value -> echo " $key = $value" }
-        sh '''
+          '''
+
+          TAG = sh( script: 'git describe --tags', returnStdout: true ).trim()
+          NAME = sh( script: 'echo "tags-test"', returnStdout: true ).trim()
+          DESCRIPTION = sh( script: 'echo "this-is-a-test-67"', returnStdout: true ).trim()
+    
+        sh '''           
            echo "Creating tag release..."
            token="${PASSWORD}"
            release=$(curl -X POST -H "Authorization:token ${token}" \
-                              --data '{ \"tag_name\" : $props.tag_name
+                              --data '{ \"tag_name\" : $TAG
                                       , \"target_commitish\" : \"main\" 
-                                      , \"name\" : $props.name
-                                      , \"body\" : $props.description
+                                      , \"name\" : $NAME
+                                      , \"body\" : $DESCRIPTION
                                       , \"draft\" : false
                                       , \"prerelease\" : true }' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
 
