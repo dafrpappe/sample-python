@@ -37,6 +37,7 @@ pipeline {
          '''  
            # Get the full message associated with this tag                    
 
+
            token="${PASSWORD}"
 
            # Create a release
