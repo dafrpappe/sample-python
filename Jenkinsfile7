@@ -1,6 +1,8 @@
 def COLOR_MAP = ["SUCCESS": "good", "FAILURE":"danger"]
 def props
 
+String cmd = "curl -s -H \"Authorization: token ${password}\" ${url}"
+String example = 'curl -s -H "Authorization: token XXX" https://api.github.com/repos/tdongsi/groovy/pulls/2'
 
 pipeline {
   agent { 
@@ -32,12 +34,15 @@ pipeline {
            
            sh "echo ${GIT_TAG}"    
 
-           props = readJSON text: '{ "key": "value" }'
-
-           echo "props.key"
-
         }
-        sh 'echo "${props.key}"'    
+
+        sh '''
+
+             jsonData="{ \"tag_name\" : \"$GIT_TAG\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }""
+             
+             echo "$jsonData"
+        '''
+
       }    
     }
     stage('Build') {
