@@ -36,7 +36,8 @@ pipeline {
 
            echo "props.key"
 
-        }        
+        }
+        sh 'echo "${props.key}"'    
       }    
     }
     stage('Build') {
