@@ -9,7 +9,7 @@ pipeline {
         steps{
             sh '''
                echo "${PASSWORD}"
-               ls -l
+
 
                '''
 
@@ -19,7 +19,7 @@ pipeline {
     stage('Build artifact'){
 
       steps {
-
+        cleanWs()
 
         sh '''
            echo "Publishing on Github..."
@@ -39,9 +39,7 @@ pipeline {
            message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
            
            name="tags-test"
-           description="this-is-a-test-67"
-          
-       
+           description="this-is-a-test-67"                 
 
            # Create a release
            release=$(curl -X POST -H "Authorization:token ${token}" \
