@@ -33,7 +33,7 @@ pipeline {
  
         }
         
-        sh 'echo ${jsonString}'
+        sh "echo ${jsonString}"
       
 
         
