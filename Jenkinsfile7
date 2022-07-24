@@ -29,7 +29,7 @@ pipeline {
               git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile
 
               '''
-           gitTag = sh(returnStatus: true, script: 'git describe --tags').trim()
+           gitTag = sh('git describe --tags')
 
 
            echo "$gitTag"
