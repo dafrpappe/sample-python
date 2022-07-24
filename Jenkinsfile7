@@ -28,7 +28,7 @@ pipeline {
 
            ls -l
 
-           
+           git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile           
            # Get the last tag name
            tag=$(git describe --tags)
            
