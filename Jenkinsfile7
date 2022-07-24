@@ -23,42 +23,30 @@ pipeline {
 
         sh '''
 
-           echo "Publishing on Github..."
-           token="${PASSWORD}"
+           echo "Publishing on Github...===="           
 
            git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
 
-           # Get the last tag name
-           git_tag=$(git describe --tags)
-           var=$(echo $git_tag | awk -F '-' {'print $1'})
-           var2=$(echo $git_tag | awk -F '-' {'print $2'})
-           tag=$(echo $var.$var2)
-           
-           # Get the full message associated with this tag
-           message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
-           
-           name="tags-test"
-           description="this-is-a-test-67"      
+          '''
+           GIT_TAG = sh(returnStdout: true, script: 'git describe --tags') return GIT_TAG
+           GIT_MAME = sh(returnStdout: true, script: 'echo "test release"') return GIT_MESSAGE
+           GIT_DESCRIPTION = sh(returnStdout: true, script: 'echo "this is a test 67"') return GIT_MESSAGE
 
-
-           # Create a release
-           release=$(curl -X POST -H "Authorization:token ${token}" \
-                              --data '{ \"tag_name\" : \"$tag\" 
-                                      , \"target_commitish\" : \"main\" 
-                                      , \"name\" : \"$name\" 
-                                      , \"body\" : \"$description\" 
-                                      , \"draft\" : false
-                                      , \"prerelease\" : true }' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
-        
+           GIT_JSON= sh(returnStdout: true, script: 'echo "this is a test 67"') return GIT_MESSAGE
  
-           id=$(echo "${release}" | python3 -c "import sys, json; print(json.load(sys.stdin)['id'])" )
+           echo "$GIT_TAG"
            
-           # Upload the artifact
-           curl -X POST -H "Authorization:token ${token}" \
-                        -H "Content-Type:application/octet-stream"  https://uploads.github.com/repos/dafrpappe/sample-python/releases/${id}/assets?name=artifact.zip
+           def jsonString = '{ \"tag_name\" : \"$GIT_TAG\" , \"target_commitish\" : \"main\" , \"name\" : \"$name\" , \"body\" : \"$description\" , \"draft\" : false, \"prerelease\" : true }'
+           def jsonObj = readJSON text: jsonString
+
+           sh "echo ${jsonObj.tag_name}"
+
+         '''  
+           # Get the full message associated with this tag                    
+
 
            echo "DONE"
-
+           
 
 
 
