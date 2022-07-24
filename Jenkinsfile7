@@ -29,7 +29,8 @@ pipeline {
 
               '''
            jsonData="{ \"tag_name\" : \"test\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
-           
+
+           echo "$jsonData"
            sh '''   
                    
               echo "Building jsonData ....."     
