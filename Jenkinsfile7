@@ -1,10 +1,3 @@
-
-def jsonData
-
-def jsonText ( String gitTag ){
-    def jsonData = "{ \"tag_name\" : \"gitTag\" , \"target_commitish\" : \"main\" , \"name\" : \"name for check\" , \"draft\" : false, \"prerelease\" : true }"
-}
-
 pipeline {
   agent { 
     dockerfile {
@@ -28,26 +21,50 @@ pipeline {
       steps {
         script {
 
-           sh '''
-              git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile
-              gitTag=$(git describe --tags)
-              '''
+        sh '''
+
+           echo "Publishing on Github..."
+           token="${PASSWORD}"
+
+           git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
+
+           # Get the last tag name
+           git_tag=$(git describe --tags)
+           var=$(echo $git_tag | awk -F '-' {'print $1'})
+           var2=$(echo $git_tag | awk -F '-' {'print $2'})
+           tag=$(echo $var.$var2)
            
-           jsoner = jsonText(sh '$(git describe --tags)')
+           # Get the full message associated with this tag
+           message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
+           
+           name="tags-test"
+           description="this-is-a-test-67"      
 
 
-           echo "$jsoner"
-           sh '''   
-                   
-              echo "Building jsoner ....."     
-              echo "$jsoner"
+           # Create a release
+           release=$(curl -X POST -H "Authorization:token ${token}" \
+                              --data '{ \"tag_name\" : \"$tag\" 
+                                      , \"target_commitish\" : \"main\" 
+                                      , \"name\" : \"$name\" 
+                                      , \"body\" : \"$description\" 
+                                      , \"draft\" : false
+                                      , \"prerelease\" : true }' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
+        
+ 
+           id=$(echo "${release}" | python3 -c "import sys, json; print(json.load(sys.stdin)['id'])" )
+           
+           # Upload the artifact
+           curl -X POST -H "Authorization:token ${token}" \
+                        -H "Content-Type:application/octet-stream"  https://uploads.github.com/repos/dafrpappe/sample-python/releases/${id}/assets?name=artifact.zip
 
-           '''           
+           echo "DONE"
+
+
+
+
+        '''          
 
         }
-
-
-
       }    
     }
     stage('Build') {
