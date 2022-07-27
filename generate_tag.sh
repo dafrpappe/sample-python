@@ -3,7 +3,7 @@
 # This script calculates the effective version of the module and stores it in version.txt
 
 # Read the current version
-current_version=$(cat version.txt)
+# current_version=$(cat version.txt)
 # Get the last tag name
 var=$(echo $git_tag | awk -F '-' {'print $1'})
 var2=$(echo $git_tag | awk -F '-' {'print $2'})
