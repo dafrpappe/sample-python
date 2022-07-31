@@ -29,24 +29,39 @@ pipeline {
            git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
 
            # Get the last tag name
-           git_tag=$(git describe --tags)
-           var=$(echo $git_tag | awk -F '-' {'print $1'})
-           var2=$(echo $git_tag | awk -F '-' {'print $2'})
-           tag=$(echo $var.$var2)
+           current_version=$(git describe --tags | awk -F '-' '{print $1}' | cut -c2-)
+           [[ $current_version =~ ^([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)$ ]] && echo "valid version" || { echo "invalid version. exiting" ; exit 1; }
            
+           # Get the major_version, minor_vesion and patch
+           major_version=`echo $current_version | cut -f1 -d "."`
+           minor_version=`echo $current_version | cut -f2 -d "."`
+           patch=`echo $current_version | cut -f3 -d "."`
+
+           commit_msg=$(git log -1 --format=%s)
+
+           filtered_commit=`echo $commit_msg | cut -f2 -d ":"`
+
            # Get the full message associated with this tag
            message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
-           
-           name="tags-test"
-           description="this-is-a-test-67"      
 
+           if [[ $filtered_commit =~ "MAJOR" ]] ; then
+               major_version=$(( major_version + 1 ))
+           elif [[ $filtered_commit  =~ "MINOR"  ]] ; then
+               minor_version=$(( minor_version + 1 ))
+           fi
+           
+           patch=$(( patch + 1 ))          
+           
+           git_tag=$(echo v$major_version.$minor_version.$patch)
+
+           name="$(echo v$major_version.$minor_version.$patch)"
+  
 
            # Create a release
            release=$(curl -X POST -H "Authorization:token ${token}" \
-                              --data '{ "tag_name" : "'$tag'" 
+                              --data '{ "tag_name" : "'$git_tag'" 
                                       , "target_commitish" : "main" 
-                                      , "name" : "'$name'" 
-                                      , "body" : "'$description'" 
+                                      , "name" : "'$filtered_commit'" 
                                       , "draft" : false
                                       , "prerelease" : true }' "https://api.github.com/repos/dafrpappe/sample-python/releases" )
         

@@ -5,9 +5,9 @@
 # Read the current version
 # current_version=$(cat version.txt)
 # Get the last tag name
-var=$(echo $git_tag | awk -F '-' {'print $1'})
-var2=$(echo $git_tag | awk -F '-' {'print $2'})
-current_version=$(echo $var.$var2)
+current_version=$(git describe --tags | awk -F '-' '{print $1}' | cut -c2-)
+
+echo "${current_version}"
 
 # Check if the current version in the expected format
 [[ $current_version =~ ^([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)\.([0-9]|[1-9][0-9]*)$ ]] && echo "valid version" || { echo "invalid version. exiting" ; exit 1; }
@@ -29,7 +29,7 @@ elif [[ $filtered_commit  =~ "MINOR"  ]] ; then
     minor_version=$(( minor_version + 1 ))
 fi
 
-patch=$CODEBUILD_BUILD_NUMBER
+patch=$(( patch + 1 ))
 
 # Update version.txt
 echo $major_version.$minor_version.$patch > version.txt
