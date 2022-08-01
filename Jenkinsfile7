@@ -54,11 +54,12 @@ pipeline {
            name="${filtered_commit// /_}"
 
 
+
            # Create a release
            release=$(curl -X POST -H "Authorization:token ${token}" \
                               --data '{ "tag_name" : "'$git_tag'"  
                                       , "target_commitish" : "main" 
-                                      , "name" : "'$filtered_commit'" 
+                                      , "name" : "'$name'" 
                                       , "draft" : false 
                                       , "prerelease" : true }' https://api.github.com/repos/dafrpappe/sample-python/releases)
         
