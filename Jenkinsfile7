@@ -36,10 +36,16 @@ pipeline {
            minor_version=`$(echo $current_version | cut -f2 -d ".")`
            patch=`$(echo $current_version | cut -f3 -d ".")`
 
+           commit_msg="$(git log -1 --format=%s)"
+
+           filtered_commit=`$(echo $commit_msg | cut -f2 -d ":")`
 
 
-           filtered_commit="test-here"
-
+           if [[ ${filtered_commit} =~ "MAJOR" ]] ; then
+               major_version=$(( major_version + 1 ))
+           elif [[ ${filtered_commit}  =~ "MINOR"  ]] ; then
+               minor_version=$(( minor_version + 1 ))
+           fi
            
            patch=$(( patch + 1 ))          
            
