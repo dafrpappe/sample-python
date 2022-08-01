@@ -51,7 +51,7 @@ pipeline {
            patch=$(( patch + 1 ))          
            
            git_tag="$(echo v$major_version.$minor_version.$patch)"
-           name="$(echo ${filtered_commit// /_})"
+           name="$(echo $major_version.$minor_version.$patch)"
 
 
 
