@@ -29,9 +29,10 @@ pipeline {
            git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
 
            # Get the last tag name
-
-           current_version=$(git tag | sort -V | tail -1 | cut -c2-)
+           current_version=$(git describe --tags | awk -F '-' '{print $1}' | cut -c2-)
            
+
+
            # Get the major_version, minor_vesion and patch
            major_version=$(echo $current_version | cut -f1 -d ".")
            minor_version=$(echo $current_version | cut -f2 -d ".")
