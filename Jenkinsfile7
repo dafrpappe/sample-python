@@ -38,10 +38,8 @@ pipeline {
 
            commit_msg="$(git log -1 --format=%s)"
 
-           filtered_commit="$(echo $commit_msg | cut -f2 -d ":")"
+           filtered_commit="$(echo $commit_msg | cut -f2 -d \":\")"
 
-           # Get the full message associated with this tag
-           message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
 
            if [[ ${filtered_commit} =~ "MAJOR" ]] ; then
                major_version=$(( major_version + 1 ))
