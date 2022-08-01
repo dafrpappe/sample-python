@@ -30,7 +30,6 @@ pipeline {
 
            # Get the last tag name
            current_version=$(git describe --tags | awk -F '-' '{print $1}' | cut -c2-)
-           [[ $current_version =~ ^([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)\\.([0-9]|[1-9][0-9]*)$ ]] && echo "valid version" || { echo "invalid version. exiting" ; exit 1; }
            
            # Get the major_version, minor_vesion and patch
            major_version=`echo $current_version | cut -f1 -d "."`
