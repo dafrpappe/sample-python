@@ -51,7 +51,8 @@ pipeline {
            patch=$(( patch + 1 ))          
            
            git_tag="$(echo v$major_version.$minor_version.$patch)"
-           name=$filtered_commit
+           name="${filtered_commit// /_}"
+
 
            # Create a release
            release=$(curl -X POST -H "Authorization:token ${token}" \
