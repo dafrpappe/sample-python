@@ -43,9 +43,9 @@ pipeline {
            # Get the full message associated with this tag
            message="$(git for-each-ref refs/tags/$tag --format='%(contents)')"
 
-           if [ ${filtered_commit} =~ "MAJOR" ] ; then
+           if [[ ${filtered_commit} =~ "MAJOR" ]] ; then
                major_version=$(( major_version + 1 ))
-           elif [ ${filtered_commit}  =~ "MINOR"  ] ; then
+           elif [[ ${filtered_commit}  =~ "MINOR"  ]] ; then
                minor_version=$(( minor_version + 1 ))
            fi
            
