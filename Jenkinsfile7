@@ -34,7 +34,7 @@ pipeline {
            # Get the major_version, minor_vesion and patch
            major_version=$(echo $current_version | cut -f1 -d ".")
            minor_version=$(echo $current_version | cut -f2 -d ".")
-           patch=`$(echo $current_version | cut -f3 -d ".")`
+           patch=$(echo $current_version | cut -f3 -d ".")
 
            commit_msg="$(git log -1 --format=%s)"
 
