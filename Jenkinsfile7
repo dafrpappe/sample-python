@@ -40,12 +40,6 @@ pipeline {
 
            filtered_commit="$(echo $commit_msg | cut -f2 -d \":\")"
 
-
-           if [[ ${filtered_commit} =~ "MAJOR" ]] ; then
-               major_version=$(( major_version + 1 ))
-           elif [[ ${filtered_commit}  =~ "MINOR"  ]] ; then
-               minor_version=$(( minor_version + 1 ))
-           fi
            
            patch=$(( patch + 1 ))          
            
