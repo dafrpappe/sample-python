@@ -51,13 +51,13 @@ pipeline {
            patch=$(( patch + 1 ))          
            
            git_tag="$(echo v$major_version.$minor_version.$patch)"
-           name="$(echo $major_version.$minor_version.$patch)"
+           name=$filtered_commit
 
            # Create a release
            release=$(curl -X POST -H "Authorization:token ${token}" \
                               --data '{ "tag_name" : "'$git_tag'"  
                                       , "target_commitish" : "main" 
-                                      , "name" : "'$name'" 
+                                      , "name" : "'$filtered_commit'" 
                                       , "draft" : false 
                                       , "prerelease" : true }' https://api.github.com/repos/dafrpappe/sample-python/releases)
         
