@@ -50,7 +50,7 @@ pipeline {
                minor_version=$(( minor_version + 1 ))
            fi
            
-           patch=$(( patch + 1 ))          
+           patch=$( echo $(( patch + 1 )) )          
            
            git_tag="$(echo v$major_version.$minor_version.$patch)"
            name="$(echo $major_version.$minor_version.$patch)"
