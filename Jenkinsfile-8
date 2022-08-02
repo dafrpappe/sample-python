@@ -6,10 +6,17 @@ pipeline {
   } 
   stages {    
     stage('Publish on github'){
-      if (env.BRANCH_NAME == 'main') {
-        echo 'This is main branch'
-      } else {
-        echo 'This not main branch'
+
+      steps {
+        script{
+
+            if (env.BRANCH_NAME == 'main') {
+              echo 'This is main branch'
+            } else {
+              echo 'This not main branch'
+            }
+
+        }
       }
 
     }
