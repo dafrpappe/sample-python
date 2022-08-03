@@ -1,12 +1,3 @@
-def getCurrentBranch () {
-  return sh (
-      script: 'git rev-parse --abbrev-ref HEAD',
-        returnStdout: true
-    ).trim() 
-}
-
-def branchName = getCurrentBranch()
-
 pipeline {
   agent { 
     dockerfile {
@@ -19,6 +10,7 @@ pipeline {
       steps {
         script{            
 
+            def branchName = getCurrentBranch()
             echo 'Pulling...' + branchName
 
 
@@ -103,4 +95,11 @@ pipeline {
       }
     }    
   }
+}
+
+def getCurrentBranch () {
+  return sh (
+      script: 'git rev-parse --abbrev-ref HEAD',
+        returnStdout: true
+    ).trim() 
 }
