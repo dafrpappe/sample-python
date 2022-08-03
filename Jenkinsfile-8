@@ -12,7 +12,7 @@ pipeline {
 
             sh'git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile'
 
-            def branchName = getCurrentBranch()
+            def branchName = scm.branches[0].name.split("/")[1]
             echo 'Pulling...' + branchName
 
 
@@ -97,11 +97,4 @@ pipeline {
       }
     }    
   }
-}
-
-def getCurrentBranch () {
-  return sh (
-      script: 'git rev-parse --abbrev-ref HEAD',
-        returnStdout: true
-    ).trim() 
 }
