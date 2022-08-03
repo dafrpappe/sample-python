@@ -1,3 +1,5 @@
+
+def branchName = getCurrentBranch()
 pipeline {
   agent { 
     dockerfile {
@@ -12,7 +14,7 @@ pipeline {
 
             echo 'Pulling...' + env.BRANCH_NAME
 
-            if (env.BRANCH_NAME == 'main') {
+            if (branchName == 'main') {
               echo 'This is main branch'
             } else {
               echo 'This not main branch'
