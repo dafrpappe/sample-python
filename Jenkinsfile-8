@@ -8,7 +8,9 @@ pipeline {
     stage('Publish on github'){
 
       steps {
-        script{            
+        script{         
+           
+            checkout scm
 
             def branchName = getCurrentBranch()
             echo 'Pulling...' + branchName
