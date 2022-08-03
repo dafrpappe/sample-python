@@ -9,7 +9,7 @@ pipeline {
 
       steps {
         script{         
-           
+
             checkout scm
 
             def branchName = getCurrentBranch()
@@ -101,7 +101,7 @@ pipeline {
 
 def getCurrentBranch () {
   return sh (
-      script: 'git rev-parse --abbrev-ref HEAD',
+      script: 'git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile && git rev-parse --abbrev-ref HEAD',
         returnStdout: true
     ).trim() 
 }
