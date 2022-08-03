@@ -5,6 +5,7 @@ def getCurrentBranch () {
     ).trim() 
 }
 
+def branchName = getCurrentBranch()
 
 pipeline {
   agent { 
@@ -16,10 +17,7 @@ pipeline {
     stage('Publish on github'){
 
       steps {
-        script{
-
-            checkout scm
-            def branchName = getCurrentBranch()
+        script{            
 
             echo 'Pulling...' + branchName
 
