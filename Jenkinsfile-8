@@ -1,3 +1,13 @@
+def branchName = getCurrentBranch()
+
+def getCurrentBranch() = {
+  return sh (
+      script: 'git rev-parse --abbrev-ref HEAD',
+        returnStdout: true
+    ).trim() )
+}
+
+
 pipeline {
   agent { 
     dockerfile {
@@ -12,13 +22,8 @@ pipeline {
 
             checkout scm
 
-            echo 'Pulling...' + env.BRANCH_NAME
+            echo 'Pulling...' + branchName
 
-            if (env.BRANCH_NAME == 'main') {
-              echo 'This is main branch'
-            } else {
-              echo 'This not main branch'
-            }
 
         }
       }
