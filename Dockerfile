@@ -9,7 +9,6 @@ RUN apt-get install -y python3-pip
 RUN apt-get install -y jq
 RUN apt-get -y install bzip2
 RUN  wget https://github.com/github-release/github-release/releases/download/v0.10.0/
-linux-amd64-github-release.bz2
 RUN bzip2 -dk linux-amd64-github-release.bz2
 RUN mv linux-amd64-github-release github-release
 
