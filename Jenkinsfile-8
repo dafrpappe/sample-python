@@ -3,7 +3,7 @@ pipeline {
     dockerfile {
       args '-u root'
     } 
-  } 
+  }
   stages {    
     stage('Publish on github'){
 

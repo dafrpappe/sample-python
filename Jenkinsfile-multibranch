@@ -1,9 +1,10 @@
+
 pipeline {
   agent { 
     dockerfile {
       args '-u root'
     } 
-  } 
+  }
   stages {    
     stage('Publish on github'){
 
@@ -11,11 +12,10 @@ pipeline {
         script{         
 
             sh'git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile'
-            echo 'Pulling.............................' + env.BRANCH_NAME
+            if  (env.BRANCH_NAME == 'main') {
+              echo 'I only execute on the MAIN branch'
 
-
-
-
+            }
         }
       }
 
@@ -23,6 +23,7 @@ pipeline {
     stage('Build artifact'){
 
       steps {
+        with
         script {
 
         sh '''
