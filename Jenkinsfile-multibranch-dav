@@ -5,32 +5,33 @@ pipeline {
       args '-u root'
     } 
   }
-stages {
-        stage('Main Branch Deploy Code') {
-            when {
-                branch 'main'
-            }
-            steps {
-                sh """
-                echo "Building Artifact from Master branch"
-                """
- 
-                sh """
-                echo "Deploying Code from Master branch"
-                """
-            }
+  stages {
+      stage('Main Branch Deploy Code') {
+          when {
+              branch 'main'
+          }
+          steps {
+              sh """
+              echo "Building Artifact from Master branch"
+              """
+
+            sh """
+            echo "Deploying Code from Master branch"
+            """
         }
-        stage('Stage Branch Deploy Code') {
-            when {
-                branch 'stage'
-            }
-            steps {
-                sh """
-                echo "Building Artifact from Develop branch"
-                """
-                sh """
-                echo "Deploying Code from Develop branch"
-                """
-           }
+    }
+    stage('Stage Branch Deploy Code') {
+        when {
+            branch 'stage'
         }
+        steps {
+            sh """
+            echo "Building Artifact from Develop branch"
+            """
+            sh """
+            echo "Deploying Code from Develop branch"
+            """
+       }
+    }
+  }
 }
