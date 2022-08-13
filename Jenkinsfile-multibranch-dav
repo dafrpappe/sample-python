@@ -7,8 +7,11 @@ pipeline {
   }
   stages {
       stage('different Branch Deploy Code') {
+
           when {
-              branch not { equals 'main' } or branch not { equals 'stage' }
+             expression {
+                 return env.BRANCH_NAME != 'main' or env.BRANCH_NAME != 'stage';
+             }
           }
           steps {
               sh """
