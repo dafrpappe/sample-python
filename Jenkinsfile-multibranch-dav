@@ -6,6 +6,20 @@ pipeline {
     } 
   }
   stages {
+      stage('different Branch Deploy Code') {
+          when {
+              branch not { equals 'main' } or branch not { equals 'stage' }
+          }
+          steps {
+              sh """
+              echo "Building Artifact from different branch"
+              """
+
+              sh """
+              echo "Deploying Code from different branch"
+              """
+        }
+      }      
       stage('Main Branch Deploy Code') {
           when {
               branch 'main'
@@ -16,7 +30,7 @@ pipeline {
               """
 
             sh """
-            echo "Deploying Code from Master branch"
+            echo "Deploying Code from Main branch"
             """
         }
     }
@@ -26,10 +40,13 @@ pipeline {
         }
         steps {
             sh """
-            echo "Building Artifact from Develop branch"
+            echo "Building Artifact from Stage branch"
             """
             sh """
-            echo "Deploying Code from Develop branch"
+            echo "Deploying Code from Stage branch"
+            """
+            sh """
+            echo "Created a test branch"
             """
        }
     }
