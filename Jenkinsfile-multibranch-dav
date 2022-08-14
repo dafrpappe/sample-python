@@ -5,8 +5,11 @@ pipeline {
       args '-u root'
     } 
   }
+  parameters {
+
+  }
   stages {
-      stage('different Branch Deploy Code') {
+      stage('Test code') {
 
           when {
             branch 'feat.*'
@@ -14,12 +17,16 @@ pipeline {
           }
           steps {
               sh """
-              echo "Building Artifact from different branch"
-              """
+              echo "Test code"
+              """            
+              cleanWs()
 
-              sh """
-              echo "Deploying Code from different branch"
-              """
+              git branch: '${ghprbSourceBranch}',
+                  credentialsId: 'dafrpappe',
+                  url: 'https://github.com/dafrpappe/sample-python'
+              checkout([$class: 'GitSCM', branches: [[name: env.ghprbActualCommit]]])
+
+
               sh './hello_world.py'
         }
       }      
@@ -28,13 +35,15 @@ pipeline {
               branch 'main'
           }
           steps {
+
+
               sh """
               echo "Building Artifact from Master branch"
               """
 
-            sh """
-            echo "Deploying Code from Main branch"
-            """
+              sh """
+              echo "Deploying Code from Main branch"
+              """
         }
     }
     stage('Stage Branch Deploy Code') {
