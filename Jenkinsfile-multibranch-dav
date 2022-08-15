@@ -5,6 +5,9 @@ pipeline {
       args '-u root'
     } 
   }
+  options {
+    skipDefaultCheckout(true)
+  }  
   stages {
      stage('Setup parameters') {
          steps {
@@ -36,14 +39,11 @@ pipeline {
 
               cleanWs()
 
-              git branch: '${ghprbSourceBranch}',
-                  credentialsId: 'dafrpappe',
-                  url: 'git@github.com:dafrpappe/sample-python.git'
-              checkout([$class: 'GitSCM', branches: [[name: params.ghprbActualCommit]]])
+              checkout([
+                $class: 'GitSCM',
+                 branches: [[name: params.ghprbActualCommit]]
+                 ])
 
-              sh """
-              echo "Test pull request number # ${env.CHANGE_ID}"
-              """            
 
 
               sh 'chmod +x  hello_world.py ; ./hello_world.py'
@@ -82,9 +82,22 @@ pipeline {
        }
     }
   }
-  post { 
-      always { 
-          echo 'I will always say Hello again!'
+  post {
+    success {
+      script {
+        if (env.CHANGE_ID) {
+          pullRequest.removeLabel('Fail')
+          pullRequest.addLabel('Pass')
+        }
       }
-  }  
+    }
+    failure {
+      script {
+        if (env.CHANGE_ID) {
+          pullRequest.removeLabel('Pass')
+          pullRequest.addLabel('Fail')
+        }
+      }
+    }
+  }
 }
