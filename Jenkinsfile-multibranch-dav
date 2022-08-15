@@ -22,7 +22,9 @@ pipeline {
                             name: 'ghprbSourceBranch', 
                             trim: true
                         )                        
-                    ])
+                    ]),
+
+                    [$class: 'GhprbPullRequestMerge']
                 ])      
             }
          }
@@ -35,15 +37,6 @@ pipeline {
 
           }
           steps {
-
-
-              checkout([
-                $class: 'GitSCM', 
-                 branches: [[name: params.ghprbActualCommit]],
-                 extensions: [[$class: 'GhprbPullRequestMerge']]
-                 ])
-
-
 
               sh 'chmod +x  hello_world.py ; ./hello_world.py'
         }
