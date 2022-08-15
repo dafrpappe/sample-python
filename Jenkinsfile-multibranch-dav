@@ -38,7 +38,7 @@ pipeline {
 
               sh 'git --version'
 
-              withCredentials([sshUserPrivateKey(credentialsId: 'dafrpappe-pwd', keyFileVariable: 'GITHUB_KEY')])  {
+              withCredentials([sshUserPrivateKey(credentialsId: '0c09ac53-98c6-4d94-8a0a-a4346e2fe894 ', keyFileVariable: 'GITHUB_KEY')])  {
                   withEnv(["GIT_SSH_COMMAND=ssh -i $GITHUB_KEY -o StrictHostKeyChecking=no"]) {
                       script {
                               validate = sh(script: "git ls-remote --heads git@github.com:dafrpappe/sample-python.git refs/heads/pr/sample-python.git", returnStdout: true).trim()
