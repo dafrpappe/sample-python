@@ -6,18 +6,34 @@ pipeline {
     } 
   }
   stages {
-      stage('different Branch Deploy Code') {
+     stage('Setup parameters') {
+         steps {
+            script { 
+                properties([
+                    parameters([
+                        string(
+                            defaultValue: '', 
+                            name: 'ghprbActualCommit', 
+                            trim: true
+                        )
+                    ])
+                ])      
+            }
+         }
+      }      
+      stage('Test code') {
+
           when {
-              branch not { equals 'main' } or branch not { equals 'stage' }
+            branch 'feat.*'
+
           }
           steps {
               sh """
-              echo "Building Artifact from different branch"
-              """
+              echo "Test code"
+              """            
 
-              sh """
-              echo "Deploying Code from different branch"
-              """
+
+              sh 'chmod +x  hello_world.py ; ./hello_world.py'
         }
       }      
       stage('Main Branch Deploy Code') {
@@ -25,13 +41,15 @@ pipeline {
               branch 'main'
           }
           steps {
+
+
               sh """
               echo "Building Artifact from Master branch"
               """
 
-            sh """
-            echo "Deploying Code from Main branch"
-            """
+              sh """
+              echo "Deploying Code from Main branch"
+              """
         }
     }
     stage('Stage Branch Deploy Code') {
