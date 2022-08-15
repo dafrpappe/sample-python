@@ -15,7 +15,7 @@ pipeline {
                             defaultValue: '', 
                             name: 'ghprbActualCommit', 
                             trim: true
-                        )
+                        ),
                         string(
                             defaultValue: 'main', 
                             name: 'ghprbSourceBranch', 
@@ -29,7 +29,7 @@ pipeline {
       stage('Test code') {
 
           when {
-            branch 'feat.*'
+            expression { BRANCH_NAME ==~ /(feat.*|bugfix.*)/ }
 
           }
           steps {
@@ -40,7 +40,7 @@ pipeline {
                   credentialsId: 'dafrpappe',
                   url: 'git@github.com:dafrpappe/sample-python.git'
               checkout([$class: 'GitSCM', branches: [[name: params.ghprbActualCommit]]])
-                          
+
               sh """
               echo "Test pull request number # ${env.CHANGE_ID}"
               """            
