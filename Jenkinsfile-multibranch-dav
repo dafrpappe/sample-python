@@ -36,7 +36,7 @@ pipeline {
           }
           steps {
 
-
+              sh 'git --version'
               git branch: '${ghprbSourceBranch}',
                   credentialsId: 'dafrpappe-pwd',
                   url: 'git@github.com:dafrpappe/sample-python.git'
