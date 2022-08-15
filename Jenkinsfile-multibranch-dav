@@ -16,6 +16,11 @@ pipeline {
                             name: 'ghprbActualCommit', 
                             trim: true
                         )
+                        string(
+                            defaultValue: 'main', 
+                            name: 'ghprbSourceBranch', 
+                            trim: true
+                        )                        
                     ])
                 ])      
             }
@@ -28,10 +33,18 @@ pipeline {
 
           }
           steps {
+
+              cleanWs()
+
+              git branch: '${ghprbSourceBranch}',
+                  credentialsId: 'dafrpappe',
+                  url: 'git@github.com:dafrpappe/sample-python.git'
+              checkout([$class: 'GitSCM', branches: [[name: params.ghprbActualCommit]]])
+                          
               sh """
               echo "Test pull request number # ${env.CHANGE_ID}"
               """            
-              
+
 
               sh 'chmod +x  hello_world.py ; ./hello_world.py'
         }
