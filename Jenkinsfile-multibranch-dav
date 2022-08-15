@@ -38,7 +38,7 @@ pipeline {
 
 
               git branch: '${ghprbSourceBranch}',
-                  credentialsId: '0c09ac53-98c6-4d94-8a0a-a4346e2fe894',
+                  credentialsId: 'dafrpappe',
                   url: 'git@github.com:dafrpappe/sample-python.git'
               checkout([
                 $class: 'GitSCM', 
