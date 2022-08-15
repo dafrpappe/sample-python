@@ -31,8 +31,7 @@ pipeline {
               sh """
               echo "Test pull request number # ${env.CHANGE_ID}"
               """            
-
-
+              
 
               sh 'chmod +x  hello_world.py ; ./hello_world.py'
         }
