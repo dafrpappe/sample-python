@@ -19,6 +19,8 @@ pipeline {
                     ])
                 ])      
             }
+         }
+      }      
       stage('Test code') {
 
           when {
