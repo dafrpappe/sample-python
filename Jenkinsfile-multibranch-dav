@@ -22,9 +22,7 @@ pipeline {
                             name: 'ghprbSourceBranch', 
                             trim: true
                         )                        
-                    ]),
-
-                    [$class: 'GhprbPullRequestMerge']
+                    ])
                 ])      
             }
          }
