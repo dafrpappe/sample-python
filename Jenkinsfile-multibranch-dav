@@ -36,7 +36,6 @@ pipeline {
           }
           steps {
 
-              cleanWs()
 
               git branch: '${ghprbSourceBranch}',
                   credentialsId: 'Secret-token-last',
