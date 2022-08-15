@@ -29,7 +29,7 @@ pipeline {
           }
           steps {
               sh """
-              echo "Test pull request number # ${CHANGE_ID}"
+              echo "Test pull request number # ${env.CHANGE_ID}"
               """            
 
 
