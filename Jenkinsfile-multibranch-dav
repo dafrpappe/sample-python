@@ -33,7 +33,7 @@ pipeline {
               """            
 
 
-              sh 'chmod +x  hello_world.py  ; ./hello_world.py'
+              sh 'chmod +x  hello_world.py ; ./hello_world.py'
         }
       }      
       stage('Main Branch Deploy Code') {
