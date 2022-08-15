@@ -5,9 +5,7 @@ pipeline {
       args '-u root'
     } 
   }
-  options {
-    skipDefaultCheckout(true)
-  }  
+
   stages {
      stage('Setup parameters') {
          steps {
