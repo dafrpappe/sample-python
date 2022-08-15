@@ -37,12 +37,12 @@ pipeline {
           steps {
 
               sh 'git --version'
-              git branch: '${ghprbSourceBranch}',
-                  credentialsId: 'dafrpappe-pwd',
-                  url: 'git@github.com:dafrpappe/sample-python.git'
+
               checkout([
                 $class: 'GitSCM', 
-                 branches: [[name: params.ghprbActualCommit]]
+                 branches: [[name: env.ghprbActualCommit]],
+                 userRemoteConfigs: [[credentialsId: 'dafrpappe-pwd', 
+                                      url:'git@github.com:dafrpappe/sample-python.git']]
                  ])
 
 
