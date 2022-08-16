@@ -1,0 +1,101 @@
+
+pipeline {
+  agent { 
+    dockerfile {
+      args '-u root'
+    } 
+  }
+
+  stages {
+     stage('Setup parameters') {
+         steps {
+            script { 
+                properties([
+                    parameters([
+                        string(
+                            defaultValue: '', 
+                            name: 'ghprbActualCommit', 
+                            trim: true
+                        ),
+                        string(
+                            defaultValue: 'main', 
+                            name: 'ghprbSourceBranch', 
+                            trim: true
+                        )                        
+                    ])
+                ])      
+            }
+         }
+      }      
+      stage('Test code') {
+
+          when {
+            expression { BRANCH_NAME ==~ /(feat.*|bugfix.*)/ }
+
+          }
+          steps {
+
+              checkout([
+                $class: 'GitSCM', 
+                 branches: [[name: env.ghprbActualCommit]],
+                 userRemoteConfigs: [[credentialsId: 'dafrpappe-pwd', 
+                                      url:'https://github.com/dafrpappe/sample-python.git']]
+                 ])
+
+
+
+              sh 'python3 hello_world.py'
+        }
+      }      
+      stage('Main Branch Deploy Code') {
+          when {
+              branch 'main'
+          }
+          steps {
+
+
+              sh """
+              echo "Building Artifact from Master branch"
+              """
+
+              sh """
+              echo "Deploying Code from Main branch"
+              """
+        }
+    }
+    stage('Stage Branch Deploy Code') {
+        when {
+            branch 'stage'
+        }
+        steps {
+            sh """
+            echo "Building Artifact from Stage branch"
+            """
+            sh """
+            echo "Deploying Code from Stage branch"
+            """
+            sh """
+            echo "Created a test branch"
+            """
+       }
+    }
+  }
+  post {
+    success {
+      script {
+        if (env.CHANGE_ID) {
+          pullRequest.removeLabel('Fail')
+          pullRequest.addLabel('Pass')
+        }
+      }
+    }
+    failure {
+      script {
+        if (env.CHANGE_ID) {
+          pullRequest.removeLabel('Pass')
+          pullRequest.addLabel('Fail')
+        }
+      }
+    }
+  }
+}
