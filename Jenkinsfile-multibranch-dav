@@ -37,7 +37,8 @@ pipeline {
           steps {
 
               sh 'git --version'
-
+              sh 'python3 --version'
+              sh 'python --version'
               checkout([
                 $class: 'GitSCM', 
                  branches: [[name: env.ghprbActualCommit]],
