@@ -38,7 +38,6 @@ pipeline {
 
               sh 'git --version'
 
-x
               checkout([
                 $class: 'GitSCM', 
                  branches: [[name: env.ghprbActualCommit]],
