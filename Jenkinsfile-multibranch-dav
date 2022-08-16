@@ -38,7 +38,6 @@ pipeline {
 
               sh 'git --version'
               sh 'python3 --version'
-              sh 'python --version'
               checkout([
                 $class: 'GitSCM', 
                  branches: [[name: env.ghprbActualCommit]],
@@ -48,7 +47,7 @@ pipeline {
 
 
 
-              sh 'chmod +x  hello_world.py ; ./hello_world.py'
+              sh 'python3 hello_world.py'
         }
       }      
       stage('Main Branch Deploy Code') {
