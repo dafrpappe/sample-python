@@ -34,7 +34,7 @@ pipeline {
 
           }
           steps {
-              cleanWs()
+
 
               git branch: '${ghprbSourceBranch}',
                   credentialsId: 'dafrpappe-pwd',
