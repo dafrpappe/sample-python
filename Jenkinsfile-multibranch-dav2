@@ -46,7 +46,7 @@ pipeline {
                                       url:'https://github.com/dafrpappe/sample-python.git']]
                  ])
 
-
+              sh 'pwd'
 
               sh 'python3 hello_world.py'
         }
