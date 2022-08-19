@@ -34,14 +34,17 @@ pipeline {
 
           }
           steps {
+              cleanWs()
 
+              git branch: '${ghprbSourceBranch}',
+                  credentialsId: 'dafrpappe-pwd',
+                  url: 'https://github.com/dafrpappe/sample-python.git'
               checkout([
                 $class: 'GitSCM', 
                  branches: [[name: env.ghprbActualCommit]],
                  userRemoteConfigs: [[credentialsId: 'dafrpappe-pwd', 
                                       url:'https://github.com/dafrpappe/sample-python.git']]
                  ])
-
 
 
 
