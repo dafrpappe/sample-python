@@ -7,4 +7,6 @@ dav-01: creating another test with dav branch 100
 dav-01: creating another test with dav branch 150
 dav-01: creating another test with dav branch 200
 dav-01: creating another test with dav branch 230
-fix.code: fix code branch 255 
+fix.code: fix code branch 255
+feature-02: creating another test with dav branch feat 300
+feature-02: creating another test with dav branch feat 330
