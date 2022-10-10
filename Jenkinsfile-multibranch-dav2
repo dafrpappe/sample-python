@@ -47,6 +47,73 @@ pipeline {
               sh 'python3 hello_world.py'
         }
       }      
+    stage('Build artifact'){
+
+      steps {
+        script {
+
+        sh '''
+
+           echo "Publishing on Github..."
+           token="${PASSWORD}"
+
+           git config --global --add safe.directory /home/admin/workspace/python-jenkinsfile  
+
+           # Get the last tag name
+           current_version=$(git describe --tags | awk -F '-' '{print $1}' | cut -c2-)
+           
+
+
+           # Get the major_version, minor_vesion and patch
+           major_version=$(echo $current_version | cut -f1 -d ".")
+           minor_version=$(echo $current_version | cut -f2 -d ".")
+           patch=$(echo $current_version | cut -f3 -d ".")
+
+           commit_msg=$(git log -1 --format=%s)
+
+           filtered_commit=$(echo $commit_msg | cut -f2 -d ":")
+
+
+
+           if [[ ${filtered_commit} =~ "MAJOR" ]] ; then
+               major_version=$(( major_version + 1 ))
+           elif [[ ${filtered_commit}  =~ "MINOR"  ]] ; then
+               minor_version=$(( minor_version + 1 ))
+           fi
+           
+           patch="$( echo $(( patch + 1 )) )"
+           
+           git_tag="$(echo v$major_version.$minor_version.$patch)"
+           name="$(echo $major_version.$minor_version.$patch)"
+
+
+
+           # Create a release
+           release=$(curl -X POST -H "Authorization:token ${token}" \
+                              --data '{ "tag_name" : "'$git_tag'"  
+                                      , "target_commitish" : "main" 
+                                      , "name" : "'$name'" 
+                                      , "draft" : false 
+                                      , "prerelease" : true }' https://api.github.com/repos/dafrpappe/sample-python/releases)
+        
+ 
+           id=$(echo "${release}" | python3 -c "import sys, json; print(json.load(sys.stdin)['id'])" )
+           
+           # Upload the artifact
+           curl -X POST -H "Authorization:token ${token}" \
+                        -H "Content-Type:application/octet-stream"  https://uploads.github.com/repos/dafrpappe/sample-python/releases/${id}/assets?name=artifact.zip
+
+           echo "DONE- DONE"
+
+
+
+
+        '''          
+
+        }
+      }    
+    }
+       
       stage('Main Branch Deploy Code') {
           when {
               branch 'main'
